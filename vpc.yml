@@ -6,7 +6,7 @@
       include_vars: variable/vpc_setup
 
     - name: Create vprofile VPC
-      ec2_vpc_net: #Module name
+      ec2_vpc_net:
         name: "{{vpc_name}}"
         cidr_block: "{{vpc-Cidr}}"
         region: "{{region}}"
