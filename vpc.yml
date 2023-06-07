@@ -14,16 +14,16 @@
         dns_hostnames: yes
         tenancy: default
         state: "{{state}}"
-      register: vpc-output
+      register: vpcout
     - debug: 
-        var: vpc-output
+        var: vpcout
 
   #  - debug:
-  #      var: vpc-output
+  #      var: vpcout
 
     # - name: create Public Subnet 1 in Zone1
     #   ec2_vpc_subnet:
-    #     vpc_id: "{{vpc-output.vpc.id}}"
+    #     vpc_id: "{ vpcout.vpc.id}}"
     #     region: "{{ region }}"
     #     az: "{{ zone1 }}"
     #     state: "{{state}}"
@@ -35,7 +35,7 @@
 
     # - name: create Public subnet 2 in zone2
     #   ec2_vpc_subnet:
-    #     vpc_id: "{{ vpc-output.vpc.id }}"
+    #     vpc_id: "{{ vpcout.vpc.id }}"
     #     region: "{{ region }}"
     #     az: "{{ zone2 }}"
     #     state: "{{state}}"
@@ -47,7 +47,7 @@
 
     # - name: create Public subnet 3 in zone3
     #   ec2_vpc_subnet:
-    #     vpc_id: "{{ vpc-output.vpc.id }}"
+    #     vpc_id: "{{ vpcout.vpc.id }}"
     #     region: "{{ region }}"
     #     az: "{{ zone3 }}"
     #     state: "{{state}}"
@@ -59,7 +59,7 @@
 
     # - name: create Private Subnet 1 in Zone1
     #   ec2_vpc_subnet:
-    #     vpc_id: "{{ vpc-output.vpc.id }}"
+    #     vpc_id: "{{ vpcout.vpc.id }}"
     #     region: "{{ region }}"
     #     az: "{{ zone1 }}"
     #     state: "{{state}}"
@@ -70,7 +70,7 @@
 
     # - name: create Private subnet 2 in zone2
     #   ec2_vpc_subnet:
-    #     vpc_id: "{{ vpc-output.vpc.id }}"
+    #     vpc_id: "{{ vpcout.vpc.id }}"
     #     region: "{{ region }}"
     #     az: "{{ zone2 }}"
     #     state: "{{state}}"
@@ -83,7 +83,7 @@
 
     # - name: create Private subnet 3 in zone3
     #   ec2_vpc_subnet:
-    #     vpc_id: "{{ vpc-output.vpc.id }}"
+    #     vpc_id: "{{ vpcout.vpc.id }}"
     #     region: "{{ region }}"
     #     az: "{{ zone3 }}"
     #     state: "{{state}}"
@@ -94,7 +94,7 @@
 
     # - name: Internet Gateway Setup
     #   ec2_vpc_igw:
-    #     vpc_id: "{{ vpc-output.vpc.id }}"
+    #     vpc_id: "{{ vpcout.vpc.id }}"
     #     region: "{{ region }}"
     #     state: "{{state}}"
     #     resource_tags:
@@ -103,7 +103,7 @@
 
     # - name: Set up public subnet route table
     #   ec2_vpc_route_table:
-    #     vpc_id: "{{vpc-output.vpc.id}}"
+    #     vpc_id: "{ vpcout.vpc.id}}"
     #     region: "{{ region }}"
     #     tags:
     #       Name: VProfile-PubRT
@@ -127,7 +127,7 @@
 
     # - name: Set up Private subnet route table
     #   ec2_vpc_route_table:
-    #     vpc_id: "{{vpc-output.vpc.id}}"
+    #     vpc_id: "{ vpcout.vpc.id}}"
     #     region: "{{ region }}"
     #     tags:
     #       Name: Vprofile_PrivRT
@@ -143,7 +143,7 @@
     # - debug:
     #     var: "{{item}}"
     #   loop:
-    #     - vpc-output.vpc.id
+    #     - vpcout.vpc.id
     #     - pubsub1_out.subnet.id
     #     - pubsub2_out.subnet.id
     #     - pubsub3_out.subnet.id
@@ -156,7 +156,7 @@
     #     - privRT_out.route_table.id
 
     # - set_fact:
-    #      vpcid: "{{vpc-output.vpc.id}}"
+    #      vpcid: "{ vpcout.vpc.id}}"
     #      pubsub1id: "{{ pubsub1_out.subnet.id }}"
     #      pubsub2id: "{{ pubsub2_out.subnet.id }}"
     #      pubsub3id: "{{ pubsub3_out.subnet.id }}"
@@ -171,7 +171,7 @@
 
     # - name: Create variables file for vpc output
     #   copy:
-    #      content: "vpcid: {{ vpc-output.vpc.id }}\npubsub1id: {{ pubsub1_out.subnet.id }}\npubsub2id: {{ pubsub2_out.subnet.id }}\npubsub3id: {{ pubsub3_out.subnet.id }}\nprivsub1id: {{ privsub1_out.subnet.id }}\nprivsub2id: {{ privsub2_out.subnet.id }}\nprivsub3id: {{ privsub3_out.subnet.id }}\nigwid: {{ igw_out.gateway_id }}\npubRTid: {{ pubRT_out.route_table.id }}\nNATGWid: {{ NATGW_out.nat_gateway_id }}\nprivRTid: {{ privRT_out.route_table.id }}\n"
+    #      content: "vpcid: {{ vpcout.vpc.id }}\npubsub1id: {{ pubsub1_out.subnet.id }}\npubsub2id: {{ pubsub2_out.subnet.id }}\npubsub3id: {{ pubsub3_out.subnet.id }}\nprivsub1id: {{ privsub1_out.subnet.id }}\nprivsub2id: {{ privsub2_out.subnet.id }}\nprivsub3id: {{ privsub3_out.subnet.id }}\nigwid: {{ igw_out.gateway_id }}\npubRTid: {{ pubRT_out.route_table.id }}\nNATGWid: {{ NATGW_out.nat_gateway_id }}\nprivRTid: {{ privRT_out.route_table.id }}\n"
     #      dest: vars/output_vars
 
 
