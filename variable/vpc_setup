@@ -18,6 +18,6 @@ region: "us-east-1"
 zone1: us-east-1a
 zone2: us-east-1b
 zone3: us-east-1c
-zone4: us-east-1d
+# zone4: us-east-1d
 
 state: present
