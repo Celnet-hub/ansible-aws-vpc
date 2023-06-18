@@ -10,12 +10,18 @@
     - name: Import VPC setup Variable
       include_vars: variable/output_vars
 
+    - name: Create dcn java app ec2 key
+      ec2_key:
+        name: dcn-java-key
+        region: "{{region}}"
+      register: dcn_key_out
+
     - name: Save private key into file bastion-key.pem
       copy:
-        content: "{{key_out.key.private_key}}"
+        content: "{{dcn_key_out.key.private_key}}"
         dest: "./bastion-key.pem"
         mode: 0600
-      when: key_out.changed
+      when: dcn_key_out.changed
 
     - name: Create Sec Grp for bastion host
       ec2_group:
